@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Social Cheers - Linkedin JS SDK</title>
+
+	<!-- init Linkedin JS SDK -->
+	<script type="text/javascript" src="//platform.linkedin.com/in.js">
+    api_key:   81rk2mq4rtn1as
+    onLoad:    onLinkedInLoad
+    authorize: false
+    lang:      en_US
+	</script>
+
+	<script type="text/javascript">
+    
+  // Setup an event listener to make an API call once auth is complete
+  function onLinkedInLoad() {
+    IN.Event.on(IN, "auth", shareContent);
+  }
+
+  // Handle the successful return from the API call
+  function onSuccess(data) {
+    console.log(data);
+  }
+
+  // Handle an error response from the API call
+  function onError(error) {
+    console.log(error);
+  }
+
+  // Use the API call wrapper to share content on LinkedIn
+  function shareContent() {
+        
+    // Build the JSON payload containing the content to be shared
+    var payload = { 
+      "comment": "Check out developer.linkedin.com! http://linkd.in/1FC2PyG", 
+      "visibility": { 
+        "code": "anyone"
+      } 
+    };
+
+    IN.API.Raw("/people/~/shares?format=json")
+      .method("POST")
+      .body(JSON.stringify(payload))
+      .result(onSuccess)
+      .error(onError);
+  }
+
+</script>
+
+</head>
+
+<body>
+	<h1>Cheer from Tom</h1>
+
+  <img src="cheers.jpg" alt="Cheer" style="height:200;">
+
+  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis dui lorem, blandit sed malesuada ac, egestas sit amet purus. Quisque auctor dui vel felis ornare, nec tincidunt dolor finibus. Ut blandit augue dui, sed commodo neque varius a.</p>
+
+  <h1>To Jerry</h1>
+
+  <hr/>
+
+  <!-- "Sign in with LinkedIn" button -->
+  <script type="in/Login"></script>
+
+</body>
+
+</html>
